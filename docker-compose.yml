@@ -1,0 +1,41 @@
+name: pgai-ollama
+services:
+  api:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports: 
+      - "8080:8080"
+  db:
+    image: timescale/timescaledb-ha:pg16
+    environment:
+      POSTGRES_PASSWORD: postgres
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  vectorizer-worker:
+    image: timescale/pgai-vectorizer-worker:0.1.0
+    environment:
+      PGAI_VECTORIZER_WORKER_DB_URL: postgres://postgres:postgres@db:5432/postgres
+  app:
+    build:
+      context: ./app/
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/client
+    environment:
+      SERVER_URL: server
+    ports:
+      - 3000:3000
+    command: npm run dev
+  ollama:
+    image: ollama/ollama
+    expose:
+      - 11434
+    ports:
+      - "11434:11434"
