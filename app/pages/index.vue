@@ -30,7 +30,7 @@
         </button>
       </div>
     </div>
-    <div class="text-lg font-bold m-4">
+    <div class="text-lg font-bold m-4 min-h-96">
       <div class="my-6">
         Personalized AI Assistant
         <button class="btn btn-info btn-sm" @click="getSuggestions">

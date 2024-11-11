@@ -14,6 +14,7 @@ It is a tool for science fiction authors to overcome writer's block by using AI 
 - Nuxt.js
 - FastAPI
 - TailwindCSS
+- DaisyUI
 
 #### Getting Started
 
